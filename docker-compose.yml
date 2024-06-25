@@ -1,0 +1,26 @@
+services:
+  spring-app:
+    image: 'naskovski/kiii-wp:latest'
+    container_name: kiii-app
+    depends_on:
+      - db
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/bookstore-db
+      - SPRING_DATASOURCE_USERNAME=filip
+      - SPRING_DATASOURCE_PASSWORD=filip
+      - SPRING_JPA_HIBERNATE_DDL_AUTO=update
+    ports:
+      - 9000:8080
+          
+  db:
+    image: 'postgres:latest'
+    container_name: db
+    environment:
+      - POSTGRES_USER=filip
+      - POSTGRES_PASSWORD=filip
+      - POSTGRES_DB=bookstore-db
+    volumes:
+      - db_data:/var/lib/postgresql/data
+
+volumes:
+  db_data:
