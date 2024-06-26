@@ -65,4 +65,21 @@ jobs:
           context: .
           file: ./Dockerfile
           push: true
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/kiii-bookstore:latest
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/kiii-bookstore:${{ github.sha }}:${{ github.sha }}
+
+  deploy:
+    runs-on: ubuntu-latest
+    needs: build-push-docker
+    environment:
+      name: 'production'
+      url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
+
+    steps:
+    - name: Deploy to Azure Web App
+      id: deploy-to-webapp
+      uses: azure/webapps-deploy@v2
+      with:
+        app-name: 'filip-bookstore'
+        slot-name: 'production'
+        publish-profile: ${{ secrets.AzureAppService_PublishProfile_d3f3254b0a7444389586d3301cfe9820 }}
+        images: 'index.docker.io/${{ secrets.AzureAppService_ContainerUsername_c44e79bf5ef84d238ecedaeb808c9ff0 }}/naskovski/kiii-bookstore:${{ github.sha }}'
