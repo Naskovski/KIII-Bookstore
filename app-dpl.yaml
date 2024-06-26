@@ -18,7 +18,7 @@ spec:
     spec:
       containers:
         - name: kiii-bookstore-app
-          image: naskovski/kiii-wp:latest
+          image: naskovski/kiii-bookstore:latest
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 8080
