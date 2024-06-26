@@ -1,6 +1,6 @@
 services:
   spring-app:
-    image: 'naskovski/kiii-wp:latest'
+    image: 'naskovski/kiii-bookstore:latest'
     container_name: kiii-app
     depends_on:
       - db
