@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: db-config
+data:
+  SPRING_DATASOURCE_URL: "jdbc:postgresql://db-service:5432/bookstore-db"
+  SPRING_JPA_HIBERNATE_DDL_AUTO: "update"
+  db-name: "bookstore-db"

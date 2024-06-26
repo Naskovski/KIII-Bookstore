@@ -1,0 +1,48 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: kiii-bookstore-app
+  namespace: bookstore
+  labels:
+    app: kiii-bookstore-app
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: kiii-bookstore-app
+  template:
+    metadata:
+      name: kiii-bookstore-app
+      labels:
+        app: kiii-bookstore-app
+    spec:
+      containers:
+        - name: kiii-bookstore-app
+          image: naskovski/kiii-wp:latest
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 8080
+              protocol: TCP
+          env:
+            - name: SPRING_DATASOURCE_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: db-config
+                  key: SPRING_DATASOURCE_URL
+            - name: SPRING_DATASOURCE_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: db-basic-auth
+                  key: db-username
+            - name: SPRING_DATASOURCE_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: db-basic-auth
+                  key: db-password
+            - name: SPRING_JPA_HIBERNATE_DDL_AUTO
+              valueFrom:
+                configMapKeyRef:
+                  name: db-config
+                  key: SPRING_JPA_HIBERNATE_DDL_AUTO
+      restartPolicy: Always
+      
