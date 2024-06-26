@@ -65,7 +65,9 @@ jobs:
         with:
           context: .
           push: true
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/kiii-bookstore:${{ github.sha }}
+          tags: |
+            ${{ secrets.DOCKERHUB_USERNAME }}/kiii-bookstore:latest
+            ${{ secrets.DOCKERHUB_USERNAME }}/kiii-bookstore:${{ github.sha }}
           file: ./Dockerfile
 
   deploy:
