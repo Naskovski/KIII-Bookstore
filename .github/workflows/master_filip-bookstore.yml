@@ -83,4 +83,4 @@ jobs:
         app-name: 'filip-bookstore'
         slot-name: 'production'
         publish-profile: ${{ secrets.AzureAppService_PublishProfile_d3f3254b0a7444389586d3301cfe9820 }}
-        images: 'index.docker.io/${{ secrets.AzureAppService_ContainerUsername_c44e79bf5ef84d238ecedaeb808c9ff0 }}/naskovski/kiii-bookstore:${{ github.sha }}'
+        images: '${{ secrets.DOCKERHUB_USERNAME }}/kiii-bookstore:${{ github.sha }}'
