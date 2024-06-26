@@ -1,4 +1,4 @@
-name: Package with Maven, Build Docker Image, and push to DockerHub
+name: Package with Maven, Build Docker Image, push to DockerHub, and deploy to Azure
 
 on:
   push:
@@ -62,6 +62,7 @@ jobs:
       - name: Build and push container image to registry
         uses: docker/build-push-action@v3
         with:
+          context: .
           push: true
           tags: index.docker.io/${{ secrets.AzureAppService_ContainerUsername_c44e79bf5ef84d238ecedaeb808c9ff0 }}/naskovski/kiii-bookstore:${{ github.sha }}
           file: ./Dockerfile
