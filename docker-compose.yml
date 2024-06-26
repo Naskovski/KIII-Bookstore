@@ -1,6 +1,8 @@
 services:
   spring-app:
-    image: 'naskovski/kiii-bookstore:latest'
+    build:
+      context: .
+      dockerfile: Dockerfile
     container_name: kiii-app
     depends_on:
       - db
